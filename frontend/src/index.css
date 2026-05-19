@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+/* victoreke.com-inspired charcoal + noise texture */
+:root {
+  --noise-url: url("https://res.cloudinary.com/victoreke/image/upload/v1691779257/victoreke/noise.png");
+  --bg-page: #111113;
+  --bg-card: rgba(39, 39, 43, 0.4);
+  --bg-card-hover: rgba(45, 45, 50, 0.48);
+  --bg-input: rgba(24, 24, 27, 0.55);
+  --bg-navbar: rgba(20, 20, 22, 0.72);
+  --border-subtle: rgba(255, 255, 255, 0.035);
+  --border-muted: rgba(255, 255, 255, 0.04);
+  --text-primary: #f4f4f5;
+  --text-secondary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+}
+
+@theme {
+  --color-dev-base: #111113;
+  --color-dev-muted: #a1a1aa;
+  --color-dev-secondary: #d4d4d8;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  color: #f8fafc;
+  background-color: #111113;
+  background-image:
+    var(--noise-url),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035), transparent 32%),
+    linear-gradient(180deg, #171719 0%, #111113 45%, #0c0c0d 100%);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size: 180px 180px, 100% 100%, 100% 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Extra subtle noise layer — same texture, no fake SVG grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image: var(--noise-url);
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: soft-light;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+@layer components {
+  .devboard-page {
+    @apply min-h-screen;
+  }
+
+  .devboard-heading {
+    color: var(--text-primary);
+  }
+
+  .devboard-text {
+    color: var(--text-primary);
+  }
+
+  .devboard-secondary {
+    color: var(--text-secondary);
+  }
+
+  .devboard-muted {
+    color: var(--text-muted);
+  }
+
+  .devboard-dim {
+    color: var(--text-dim);
+  }
+
+  .devboard-surface {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: none;
+  }
+
+  .devboard-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: none;
+    @apply rounded-xl transition-colors duration-200;
+  }
+
+  .devboard-card:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .devboard-card-interactive {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: none;
+    @apply block rounded-xl transition-colors duration-200;
+  }
+
+  .devboard-card-interactive:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .devboard-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: none;
+    @apply rounded-2xl;
+  }
+
+  /* Navbar / header — textured charcoal, blends with page (victoreke-style) */
+  .devboard-navbar,
+  .devboard-header,
+  header.devboard-header,
+  .app-navbar {
+    background-color: rgba(20, 20, 22, 0.72);
+    background-image: var(--noise-url);
+    background-repeat: repeat;
+    background-size: 180px 180px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: none;
+  }
+
+  .devboard-input,
+  .devboard-select,
+  .devboard-textarea {
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    @apply w-full rounded-lg px-3 py-2 text-sm outline-none transition;
+  }
+
+  .devboard-input::placeholder {
+    color: var(--text-dim);
+  }
+
+  .devboard-input:focus,
+  .devboard-select:focus,
+  .devboard-textarea:focus {
+    border-color: rgba(99, 102, 241, 0.45);
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.15);
+  }
+
+  .devboard-label {
+    color: var(--text-muted);
+    @apply mb-1 block text-sm font-medium;
+  }
+
+  .devboard-tag {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    @apply rounded px-2 py-0.5 text-xs;
+  }
+
+  .devboard-badge {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    @apply rounded-full px-2 py-0.5 text-xs capitalize;
+  }
+
+  .devboard-empty {
+    background: rgba(39, 39, 43, 0.25);
+    border: 1px dashed rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    @apply rounded-xl py-16 text-center;
+  }
+
+  .devboard-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: none;
+    @apply rounded-xl p-5;
+  }
+
+  .devboard-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+  }
+}
