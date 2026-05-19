@@ -6,7 +6,6 @@ def api_root(request):
     return JsonResponse({
         "project":"DevBoard API",
         "status":"running",
-        "message":"Render is using the updated urls.py",
         "path":request.path,
         "routes":{
             "admin":"/admin/",
@@ -22,12 +21,12 @@ def api_root(request):
 def catch_all(request,path=None):
     return JsonResponse({
         "error":"Route not matched",
-        "path":request.path,
-        "message":"Django is running, but this path did not match any URL pattern"
+        "path":request.path
     },status=404)
 
 urlpatterns=[
     path('',api_root),
+    path('api',api_root),
     path('api/',api_root),
     path('admin/',admin.site.urls),
     path('api/auth/',include('accounts.urls')),
