@@ -72,8 +72,7 @@ ROOT_URLCONF='devboard_backend.urls'
 
 TEMPLATES=[
     {
-        'BACKEND':
-            'django.template.backends.django.DjangoTemplates',
+        'BACKEND':'django.template.backends.django.DjangoTemplates',
 
         'DIRS':[],
 
@@ -81,7 +80,6 @@ TEMPLATES=[
 
         'OPTIONS':{
             'context_processors':[
-
                 'django.template.context_processors.debug',
 
                 'django.template.context_processors.request',
@@ -137,8 +135,7 @@ STATIC_URL='static/'
 
 STATIC_ROOT=BASE_DIR/'staticfiles'
 
-STATICFILES_STORAGE=
-'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
 
@@ -152,7 +149,7 @@ REST_FRAMEWORK={
     ),
 
     'DEFAULT_PAGINATION_CLASS':
-        'rest_framework.pagination.PageNumberPagination',
+    'rest_framework.pagination.PageNumberPagination',
 
     'PAGE_SIZE':20,
 }
@@ -160,19 +157,19 @@ REST_FRAMEWORK={
 SIMPLE_JWT={
 
     'ACCESS_TOKEN_LIFETIME':
-        timedelta(minutes=60),
+    timedelta(minutes=60),
 
     'REFRESH_TOKEN_LIFETIME':
-        timedelta(days=7),
+    timedelta(days=7),
 
     'ROTATE_REFRESH_TOKENS':
-        True,
+    True,
 
     'BLACKLIST_AFTER_ROTATION':
-        False,
+    False,
 
     'AUTH_HEADER_TYPES':
-        ('Bearer',),
+    ('Bearer',),
 }
 
 CORS_ALLOWED_ORIGINS=[
