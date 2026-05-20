@@ -1,280 +1,364 @@
 # DevBoard
 
-**DevBoard** is a full-stack developer project management and portfolio platform. Track projects and tasks, import repositories from GitHub, view dashboard analytics, and share a public portfolio page — all behind JWT authentication with a modern, textured dark UI.
+**DevBoard** is a full-stack developer project management and portfolio platform.
 
-Built as a production-style portfolio project with clean API design, owner-scoped data access, and a recruiter-ready README.
+Track projects and tasks, import repositories from GitHub, view dashboard analytics, and share a public portfolio page — all secured with JWT authentication and a modern dark UI.
+
+🌐 **Live Demo:** https://devboard-frontend-tfj8.onrender.com  
+🔗 **Backend API:** https://devboard-backend-uoj6.onrender.com/api  
+📂 **Repository:** https://github.com/dheeraj25406/devboard
 
 ---
 
 ## Highlights (Resume-Ready)
 
-- Architected a **REST API** with Django REST Framework and **JWT auth** (register, login, refresh, profile) using owner-based permissions and validation-first error responses.
-- Delivered **CRUD workflows** for projects and tasks with filtering, search, status/priority filters, and a aggregated **dashboard stats** endpoint.
-- Integrated the **GitHub public API** to fetch repositories and one-click import projects with stars, forks, and language metadata.
-- Built a **React + Vite** SPA with protected routes, Axios interceptors (token refresh), reusable components, and form validation.
-- Designed a **charcoal textured UI** (noise overlay, glass-style cards, responsive layout) suitable for portfolio and GitHub screenshots.
-- Structured the backend for **PostgreSQL readiness** via environment-driven database config while using SQLite for local development.
-- Documented APIs with a **Postman collection** and clear setup instructions for local development.
+- Architected a **REST API** using Django REST Framework with **JWT authentication** (register, login, refresh, profile).
+- Built complete **CRUD workflows** for projects and tasks with filtering, search, status, and priority controls.
+- Developed a **dashboard analytics system** to summarize project and task activity.
+- Integrated the **GitHub public API** for repository discovery and one-click project import.
+- Built a **React + Vite SPA** with protected routes, token refresh handling, reusable components, and validation.
+- Designed a modern **dark portfolio UI** with responsive layouts and glass-style cards.
+- Configured production deployment with **environment-based configuration** and Render hosting.
+- Included **Postman API collection** and reproducible local setup.
 
 ---
 
-## Features
+# Architecture
+
+```text
+Frontend (React + Vite)
+        ↓
+Axios + JWT Authentication
+        ↓
+Django REST API
+        ↓
+Database
+
+GitHub API
+        ↓
+Repository Import
+```
+
+---
+
+# Features
 
 | Area | Capabilities |
 |------|----------------|
-| **Authentication** | Register (returns user + JWT), login, token refresh, profile read/update |
-| **Projects** | Create, list, detail, update, delete; filter by status, search title, filter tech stack |
-| **Tasks** | CRUD per project; filter by status, priority, project; search by title |
-| **Dashboard** | Total/completed/building projects, task counts, pending & high-priority tasks |
-| **GitHub** | Fetch public repos by username; import selected repo as a DevBoard project |
-| **Public portfolio** | Unauthenticated `/dev/:username` page with completed projects and tech stacks |
-| **UI/UX** | Dark textured theme, stat cards, empty states, loading states, error handling |
+| Authentication | Register, Login, JWT Refresh, Profile |
+| Projects | Create, Update, Delete, Filter, Search |
+| Tasks | CRUD with status and priority |
+| Dashboard | Analytics and summaries |
+| GitHub | Import repositories |
+| Portfolio | Public developer showcase |
+| UI | Responsive dark interface |
 
 ---
 
-## Tech Stack
+# Tech Stack
 
 | Layer | Technologies |
 |-------|----------------|
-| **Frontend** | React 19, Vite, Tailwind CSS v4, React Router, Axios |
-| **Backend** | Python, Django 4.2, Django REST Framework |
-| **Auth** | djangorestframework-simplejwt (JWT) |
-| **Database** | SQLite (development), PostgreSQL-ready configuration |
-| **API testing** | Postman collection included |
-| **Version control** | Git / GitHub |
+| Frontend | React 19, Vite, Tailwind CSS v4 |
+| Backend | Python, Django 4.2, Django REST Framework |
+| Authentication | JWT (SimpleJWT) |
+| Database | SQLite (development), production-ready database configuration |
+| API Testing | Postman |
+| Deployment | Render |
+| Version Control | Git / GitHub |
 
 ---
 
-## Screenshots
+# Screenshots
 
-### Dashboard
-Overview of project and task metrics with quick access to in-progress work.
+## Dashboard
+
+Overview of projects and tasks.
 
 ![Dashboard](screenshots/Dashboard.png)
 
-### Projects
-Browse, filter, and search projects with status and tech stack tags.
+---
+
+## Projects
+
+Project browsing, filtering, and management.
 
 ![Projects](screenshots/Projects.png)
 
-### Project detail & tasks
-Manage tasks with status, priority, and deadlines inside each project.
+---
+
+## Task Management
+
+Manage tasks with status and priorities.
 
 ![Add task](screenshots/Add%20task.png)
 
-### GitHub import
-Fetch public repositories and import them as DevBoard projects.
+---
+
+## GitHub Import
+
+Import repositories directly into DevBoard.
 
 ![GitHub Import](screenshots/GitHub%20Import.png)
 
 ---
 
-## Quick Start
+# Quick Start
 
-### Prerequisites
+## Prerequisites
 
-- **Python 3.9+**
-- **Node.js 18+** and npm
-- Git (optional)
+- Python 3.9+
+- Node.js 18+
+- npm
+- Git
 
-### 1. Clone the repository
+---
+
+## Clone Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/dheeraj25406/devboard.git
 cd DevBoard
 ```
 
-### 2. Backend setup
+---
+
+## Backend Setup
 
 ```bash
 cd backend
+
 python3 -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
+
+source venv/bin/activate
+
 pip install -r requirements.txt
+
 cp .env.example .env
+
 python manage.py migrate
-python manage.py createsuperuser  # optional — Django admin
+
+python manage.py createsuperuser
+
 python manage.py runserver
 ```
 
-API base URL: **http://localhost:8000/api/**
+Backend:
 
-### 3. Frontend setup
+```text
+http://localhost:8000/api
+```
 
-Open a new terminal:
+---
+
+## Frontend Setup
+
+Open another terminal:
 
 ```bash
 cd frontend
+
 npm install
+
 cp .env.example .env
+
 npm run dev
 ```
 
-App URL: **http://localhost:5173**
+Frontend:
 
-### 4. Try it out
-
-1. Register at `/register`
-2. Create a project from **Projects → New Project**
-3. Add tasks on the project detail page
-4. Import repos via **GitHub Import**
-5. View your public portfolio at `/dev/<username>` (completed projects only)
-
----
-
-## Environment Variables
-
-### Backend (`backend/.env`)
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SECRET_KEY` | Django secret key | Change in production |
-| `DEBUG` | Debug mode | `True` |
-| `ALLOWED_HOSTS` | Comma-separated hosts | `localhost,127.0.0.1` |
-| `DB_ENGINE` | Database engine | `django.db.backends.sqlite3` |
-| `DB_NAME` | DB name or SQLite path | `db.sqlite3` |
-| `DB_USER` | PostgreSQL user | — |
-| `DB_PASSWORD` | PostgreSQL password | — |
-| `DB_HOST` | PostgreSQL host | `localhost` |
-| `DB_PORT` | PostgreSQL port | `5432` |
-| `CORS_ALLOWED_ORIGINS` | Allowed frontend origins | `http://localhost:5173` |
-
-**PostgreSQL example:**
-
-```env
-DB_ENGINE=django.db.backends.postgresql
-DB_NAME=devboard
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=5432
+```text
+http://localhost:5173
 ```
 
-### Frontend (`frontend/.env`)
+---
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `VITE_API_BASE_URL` | Backend API base URL | `http://localhost:8000/api` |
+# Try It
+
+1. Register
+2. Login
+3. Create project
+4. Add tasks
+5. Import GitHub repo
+6. Open public portfolio
+
+```text
+/dev/<username>
+```
 
 ---
 
-## API Endpoints
+# Environment Variables
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/auth/register/` | No | Register user (returns user + JWT tokens) |
-| `POST` | `/api/auth/login/` | No | Login — obtain access & refresh tokens |
-| `POST` | `/api/auth/refresh/` | No | Refresh access token |
-| `GET` | `/api/auth/me/` | Yes | Current authenticated user |
-| `GET` / `PUT` / `PATCH` | `/api/auth/profile/` | Yes | Read or update profile |
-| `GET` | `/api/projects/` | Yes | List current user's projects |
-| `POST` | `/api/projects/` | Yes | Create project |
-| `GET` | `/api/projects/:id/` | Yes | Project detail |
-| `PUT` / `PATCH` | `/api/projects/:id/` | Yes | Update project |
-| `DELETE` | `/api/projects/:id/` | Yes | Delete project |
-| `GET` | `/api/tasks/` | Yes | List current user's tasks |
-| `POST` | `/api/tasks/` | Yes | Create task |
-| `GET` | `/api/tasks/:id/` | Yes | Task detail |
-| `PUT` / `PATCH` | `/api/tasks/:id/` | Yes | Update task |
-| `DELETE` | `/api/tasks/:id/` | Yes | Delete task |
-| `GET` | `/api/dashboard/stats/` | Yes | Dashboard statistics |
-| `GET` | `/api/public/:username/` | No | Public portfolio |
-| `GET` | `/api/github/repos/?username=` | Yes | Fetch GitHub public repos |
-| `POST` | `/api/github/import/` | Yes | Import repo as project |
+## Backend (.env)
 
-### Query parameters
+| Variable | Description |
+|----------|-------------|
+| SECRET_KEY | Django secret |
+| DEBUG | Debug mode |
+| ALLOWED_HOSTS | Allowed hosts |
+| CORS_ALLOWED_ORIGINS | Allowed frontend |
+| CSRF_TRUSTED_ORIGINS | Trusted frontend |
 
-**Projects:** `?status=planned|building|completed&search=<title>&tech=<stack>`
+Example:
 
-**Tasks:** `?status=todo|in_progress|done&priority=low|medium|high&search=<title>&project=<id>`
+```env
+SECRET_KEY=secret
 
-### Sample: Register
+DEBUG=True
+
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+CORS_ALLOWED_ORIGINS=http://localhost:5173
+```
+
+---
+
+## Frontend (.env)
+
+| Variable | Description |
+|----------|-------------|
+| VITE_API_BASE_URL | Backend URL |
+
+Example:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+```
+
+---
+
+# API Endpoints
+
+## Authentication
+
+```text
+POST /api/auth/register/
+POST /api/auth/login/
+POST /api/auth/refresh/
+GET  /api/auth/me/
+PUT  /api/auth/profile/
+```
+
+---
+
+## Projects
+
+```text
+GET
+POST
+PUT
+PATCH
+DELETE
+/api/projects/
+```
+
+---
+
+## Tasks
+
+```text
+GET
+POST
+PUT
+PATCH
+DELETE
+/api/tasks/
+```
+
+---
+
+## Dashboard
+
+```text
+GET /api/dashboard/stats/
+```
+
+---
+
+## GitHub
+
+```text
+GET  /api/github/repos/
+POST /api/github/import/
+```
+
+---
+
+# Example Register Request
 
 ```bash
 curl -X POST http://localhost:8000/api/auth/register/ \
-  -H "Content-Type: application/json" \
-  -d '{
-    "username": "johndoe",
-    "email": "john@example.com",
-    "password": "SecurePass123!",
-    "password_confirm": "SecurePass123!",
-    "first_name": "John",
-    "last_name": "Doe"
-  }'
-```
-
-### Sample: Dashboard stats
-
-```json
-{
-  "total_projects": 5,
-  "completed_projects": 2,
-  "building_projects": 2,
-  "total_tasks": 12,
-  "completed_tasks": 7,
-  "pending_tasks": 5,
-  "high_priority_tasks": 2
-}
+-H "Content-Type: application/json" \
+-d '{
+"username":"demo",
+"email":"demo@gmail.com",
+"password":"Password123!"
+}'
 ```
 
 ---
 
-## Folder Structure
+# Folder Structure
 
-```
-DevBoard/
-├── backend/
-│   ├── devboard_backend/       # Django project (settings, urls)
-│   ├── accounts/               # Auth, UserProfile, JWT views
-│   ├── projects/               # Project & Task models, dashboard, public API
-│   ├── github_sync/            # GitHub fetch & import
-│   ├── manage.py
-│   ├── requirements.txt
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── api/                # Axios client & interceptors
-│   │   ├── components/         # Navbar, cards, forms, loader, etc.
-│   │   ├── context/            # AuthContext (JWT in localStorage)
-│   │   ├── pages/              # Login, Dashboard, Projects, GitHub, Portfolio
-│   │   ├── utils/              # Error helpers
-│   │   └── index.css           # Global theme (charcoal + noise texture)
-│   ├── package.json
-│   └── .env.example
-├── postman/
-│   └── DevBoard.postman_collection.json
-├── screenshots/                # App screenshots for README
+```text
+DevBoard
+│
+├── backend
+│   ├── accounts
+│   ├── projects
+│   ├── github_sync
+│   ├── devboard_backend
+│   └── requirements.txt
+│
+├── frontend
+│   ├── src
+│   │   ├── api
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── context
+│   │   └── utils
+│
+├── screenshots
+│
+├── postman
+│
 └── README.md
 ```
 
 ---
 
-## Postman
+# Deployment
 
-Import **`postman/DevBoard.postman_collection.json`** into Postman.
+Frontend:
 
-| Variable | Value |
-|----------|--------|
-| `base_url` | `http://localhost:8000/api` |
-| `access_token` | Set automatically after **Login** request |
+https://devboard-frontend-tfj8.onrender.com
 
----
+Backend:
 
-## Future Improvements
+https://devboard-backend-uoj6.onrender.com
 
-- [ ] Deploy with **PostgreSQL** on Railway / Render / AWS
-- [ ] **GitHub OAuth** login and automatic repo sync
-- [ ] JWT **token blacklist** on logout
-- [ ] **Email verification** and password reset
-- [ ] Project **cover images** and file uploads
-- [ ] **WebSocket** or polling for real-time task updates
-- [ ] **Unit & integration tests** (pytest, React Testing Library)
-- [ ] **Docker Compose** for one-command local setup
-- [ ] **CI/CD** (GitHub Actions: lint, test, build)
-- [ ] Portfolio **custom domains** and SEO metadata
+Hosting:
+
+- Render (Frontend)
+- Render (Backend)
 
 ---
 
-## License
+# Future Improvements
+
+- [ ] PostgreSQL migration
+- [ ] GitHub OAuth
+- [ ] Email verification
+- [ ] Password reset
+- [ ] Real-time updates
+- [ ] Docker support
+- [ ] CI/CD pipelines
+- [ ] Unit and integration tests
+- [ ] Custom portfolio domains
+
+---
+
+# License
 
 MIT
