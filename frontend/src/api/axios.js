@@ -37,8 +37,8 @@ api.interceptors.response.use(
         original._retry=true;
 
         try{
-          const {data}=await axios.post(
-            `${API_BASE_URL}/auth/refresh/`,
+          const {data}=await api.post(
+            '/auth/refresh/',
             {refresh}
           );
 
@@ -58,6 +58,8 @@ api.interceptors.response.use(
           localStorage.removeItem('refresh_token');
 
           window.location.href='/login';
+
+          return Promise.reject(err);
         }
       }
     }
